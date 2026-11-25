@@ -1,0 +1,29 @@
+Forno da Maria - verificação da entrega
+Data: 25/11/2026
+Python 3.12.14 | Django 5.2.19
+
+python manage.py check
+System check identified no issues (0 silenced).
+
+python manage.py makemigrations --check --dry-run
+No changes detected
+
+python manage.py test
+Ran 24 tests
+OK
+
+python manage.py collectstatic --noinput
+139 static files copied; 417 post-processed.
+
+python manage.py check --deploy
+System check identified no issues (0 silenced).
+Executado com DEBUG=false e variáveis de produção de demonstração.
+
+Verificação manual: busca por croissant, adição de café e croissant,
+alteração da quantidade, checkout de entrega, confirmação e alteração
+do status no Django Admin. Subtotal R$22,30; entrega R$6,90; total R$29,20.
+Viewport móvel de 390px sem rolagem horizontal.
+Capturas reais incorporadas ao relatório PDF.
+
+Os testes usam um banco separado. O pacote não inclui banco, conta
+administrativa, chave de sessão ou ambiente virtual.
