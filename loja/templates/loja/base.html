@@ -1,0 +1,44 @@
+{% load static loja_tags %}
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Escolha seus favoritos da Forno da Maria e encomende para retirada ou entrega.">
+  <title>{% block title %}Forno da Maria · Padaria artesanal{% endblock %}</title>
+  <link rel="icon" type="image/svg+xml" href="{% static 'loja/img/marca.svg' %}">
+  <link rel="stylesheet" href="{% static 'loja/css/style.css' %}">
+  <script src="{% static 'loja/js/site.js' %}" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+  <div class="announcement">Feito com calma. Pedido sem fila. <span>Retire na padaria ou receba em casa.</span></div>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="{% url 'loja:home' %}" aria-label="Forno da Maria, página inicial">
+        <img src="{% static 'loja/img/marca.svg' %}" alt="" width="42" height="42">
+        <span>Forno da Maria<small>PADARIA ARTESANAL</small></span>
+      </a>
+      <nav aria-label="Navegação principal">
+        <a href="{% url 'loja:home' %}" {% if request.resolver_match.url_name == 'home' %}aria-current="page"{% endif %}>Início</a>
+        <a href="{% url 'loja:catalogo' %}" {% if request.resolver_match.url_name == 'catalogo' %}aria-current="page"{% endif %}>Cardápio</a>
+        <a href="{% url 'loja:home' %}#como-funciona">Como pedir</a>
+      </nav>
+      <a class="cart-link" href="{% url 'loja:carrinho' %}" aria-label="Carrinho com {{ cart_count }} {% if cart_count == 1 %}item{% else %}itens{% endif %}">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 8h14l-1 13H6L5 8Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg>
+        <span>Carrinho</span><strong>{{ cart_count|default:0 }}</strong>
+      </a>
+    </div>
+  </header>
+  {% if messages %}<div class="container messages" aria-live="polite">{% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+  <main id="conteudo">{% block content %}{% endblock %}</main>
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <div><a class="footer-brand" href="{% url 'loja:home' %}">Forno da Maria</a><p>Um bom dia começa com pão fresquinho.</p></div>
+      <div><strong>Do forno para você</strong><p>Pedidos para retirada ou entrega.<br>Pagamento combinado no recebimento.</p></div>
+      <div><strong>Explore</strong><p><a href="{% url 'loja:catalogo' %}">Nosso cardápio</a><br><a href="{% url 'loja:home' %}#como-funciona">Como funciona</a></p></div>
+    </div>
+    <div class="container footer-bottom"><span>Projeto acadêmico IESB · Desenvolvido com Django</span><span>Padaria fictícia · Pedidos de demonstração · Sem pagamento online</span></div>
+  </footer>
+</body>
+</html>
